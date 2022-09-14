@@ -1,4 +1,5 @@
-*.terraform/*
+# terraform provider
+*terraform*
 .terraform.lock.hcl
 .terraformrc
 *.tfstate
