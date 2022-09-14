@@ -37,7 +37,7 @@ tags = {
 
 # s3
 resource "random_pet" "lambda_bucket_name" {
-  prefix = "pedrams"
+  prefix = "pedram"
   length = 4
 }
 resource "aws_s3_bucket" "bucket" {
