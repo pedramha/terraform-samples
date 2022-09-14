@@ -9,6 +9,6 @@ variable "lambda_target_path" {
 }
 
 variable "cidr_blocks" {
-  type        = string
+  type        = list(string)
   description = "cidr block for security group"
 }
