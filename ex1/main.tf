@@ -37,7 +37,7 @@ tags = {
 
 # s3
 resource "random_string" "test" {
-  length = 16
+  length = 10
   lower  = false
 }
 resource "aws_s3_bucket" "bucket" {
