@@ -46,6 +46,6 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_bucket" "bucket2" {
-  bucket = "second-${random_pet.lambda_bucket_name.id}"
+  bucket = "second2-${random_pet.lambda_bucket_name.id}"
   acl    = "public-read"
 }
