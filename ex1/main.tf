@@ -36,13 +36,11 @@ tags = {
 
 
 # s3
-resource "random_string" "random" {
-  length           = 16
-  special          = false
-  lower            = true
-  override_special = "/@£$"
+resource "random_pet" "lambda_bucket_name" {
+  prefix = "pedrams"
+  length = 4
 }
 resource "aws_s3_bucket" "bucket" {
-  bucket = "my-bucket-${random_string.random.result}"
+  bucket = random_pet.lambda_bucket_name.id
   acl    = "public-read"
 }
