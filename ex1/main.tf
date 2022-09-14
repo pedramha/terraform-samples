@@ -43,5 +43,5 @@ resource "random_pet" "lambda_bucket_name" {
 }
 resource "aws_s3_bucket" "bucket" {
   bucket = random_pet.lambda_bucket_name.id
-  acl    = "public"
+  acl    = "public-read-write"
 }
