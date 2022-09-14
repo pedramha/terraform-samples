@@ -38,7 +38,8 @@ tags = {
 # s3
 resource "random_string" "random" {
   length           = 16
-  special          = true
+  special          = false
+  lower            = true
   override_special = "/@£$"
 }
 resource "aws_s3_bucket" "bucket" {
