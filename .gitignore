@@ -1,5 +1,5 @@
 # terraform provider
-*terraform*
+.terraform*
 .terraform.lock.hcl
 .terraformrc
 *.tfstate
