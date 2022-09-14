@@ -20,9 +20,10 @@ resource "aws_security_group" "instance" {
 resource "aws_instance" "example" {
   ami                    = "ami-785db401"
   instance_type          = "t2.micro"
+  availability_zone      = "eu-west-1a"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
 tags = {
-    Name = "pedram@hashicorp.com"
+    test = "pedram@hashicorp.com"
   }
 
   user_data = <<-EOF
@@ -42,5 +43,5 @@ resource "random_pet" "lambda_bucket_name" {
 }
 resource "aws_s3_bucket" "bucket" {
   bucket = random_pet.lambda_bucket_name.id
-  acl    = "public-read"
+  acl    = "public"
 }
