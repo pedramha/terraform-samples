@@ -2,19 +2,6 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-# s3
-provider "random" {
-}
-
-resource "random_pet" "lambda_bucket_name" {
-  prefix = "pedram"
-  length = 4
-}
-
-resource "aws_s3_bucket" "bucket" {
-  bucket = random_pet.lambda_bucket_name.id
-  acl    = "public-read-write"
-}
 
 module "lambda" {
   source  = "app.terraform.io/pedram-company/lambda/aws"
