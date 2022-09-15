@@ -2,6 +2,11 @@ provider "aws" {
   region = "eu-west-1"
 }
 
+# s3
+resource "aws_s3_bucket" "bucket" {
+  bucket = "pedddramtesssst"
+  acl    = "public-read"
+}
 
 module "lambda" {
   source  = "app.terraform.io/pedram-company/lambda/aws"
