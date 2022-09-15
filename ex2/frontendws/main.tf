@@ -5,9 +5,13 @@ provider "aws" {
 provider "random" {
 }
 
+resource "random_pet" "lambda_bucket_name" {
+  prefix = "pedram"
+  length = 4
+}
 # s3
 resource "aws_s3_bucket" "bucket" {
-  bucket = random.String.result
+  bucket = random_pet.lambda_bucket_name.id
   acl    = "public-read"
 
   website {
