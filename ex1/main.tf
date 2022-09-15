@@ -22,7 +22,7 @@ resource "aws_instance" "example" {
   instance_type          = "t2.micro"
   availability_zone      = "eu-west-1a"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
-tags = {
+  tags = {
     test = "pedram@hashicorp.com"
   }
 
