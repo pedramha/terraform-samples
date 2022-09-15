@@ -4,7 +4,7 @@ provider "aws" {
 
 # s3
 resource "aws_s3_bucket" "bucket" {
-  bucket = "pedddramtesssst"
+  bucket = "pdamtsst"
   acl    = "public-read"
 }
 
