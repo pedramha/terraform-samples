@@ -47,9 +47,13 @@ resource "mongodbatlas_database_user" "user" {
   project_id         = mongodbatlas_project.project.id
   auth_database_name = "admin"
 
-  roles {
-    role_name     = "dbAdmin"
-    database_name = "all"
+# access all databases
+  # roles {
+  #   role_name     = "dbAdmin"
+  #   database_name = "admin"
+  # }
+  builtin_roles {
+    role_name = "atlasAdmin"
   }
   labels {
     key   = "Name"
