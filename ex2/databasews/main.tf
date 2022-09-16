@@ -48,8 +48,8 @@ resource "mongodbatlas_database_user" "user" {
   auth_database_name = "admin"
 
   roles {
-    role_name     = "admin"
-    database_name = var.database_name # The database name and collection name need not exist in the cluster before creating the user.
+    role_name     = "dbAdmin"
+    database_name = "all"
   }
   labels {
     key   = "Name"
