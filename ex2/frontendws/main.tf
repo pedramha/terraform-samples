@@ -6,7 +6,7 @@ provider "random" {
 }
 
 resource "random_pet" "lambda_bucket_name" {
-  prefix = "pedram"
+  prefix = "pedrams"
   length = 4
 }
 # s3
