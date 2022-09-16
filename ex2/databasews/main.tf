@@ -6,7 +6,7 @@ terraform {
     }
   }
 }
-
+# never pass credentials here!
 provider "mongodbatlas" {}
 
 resource "mongodbatlas_project" "project" {
@@ -48,7 +48,7 @@ resource "mongodbatlas_database_user" "user" {
   auth_database_name = "admin"
 
   roles {
-    role_name     = "readWrite"
+    role_name     = "admin"
     database_name = var.database_name # The database name and collection name need not exist in the cluster before creating the user.
   }
   labels {
