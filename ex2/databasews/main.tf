@@ -48,13 +48,15 @@ resource "mongodbatlas_database_user" "user" {
   auth_database_name = "admin"
 
 # access all databases
-  # roles {
-  #   role_name     = "dbAdmin"
-  #   database_name = "admin"
-  # }
-  builtin_roles {
-    role_name = "atlasAdmin"
+  roles {
+    role_name     = "dbAdmin"
+    database_name = "admin"
   }
+    roles {
+    role_name     = "readWriteAnyDatabase"
+    database_name = "admin"
+  }
+  
   labels {
     key   = "Name"
     value = "DB User1"
