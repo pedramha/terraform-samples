@@ -16,7 +16,7 @@ data "terraform_remote_state" "remote-state" {
 
 module "lambda" {
   source  = "app.terraform.io/pedram-company/lambda/aws"
-  version = "0.0.5"
+  version = "0.0.6"
 
   src_path = "${var.lambda_src_path}"
   target_path = "${var.lambda_target_path}"
