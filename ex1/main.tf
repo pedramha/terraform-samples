@@ -23,7 +23,7 @@ resource "aws_instance" "example" {
   availability_zone      = "eu-west-1a"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
   tags = {
-    test = "pedram@hashicorp.com"
+    Name = "pedram@hashicorp.com"
   }
 
   user_data = <<-EOF
