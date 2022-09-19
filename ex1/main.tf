@@ -5,7 +5,6 @@ provider "aws" {
 provider "random" {
 }
 
-
 # create a sample webserver ec2 instance
 resource "aws_security_group" "instance" {
   name = "terraform-example-instance"
