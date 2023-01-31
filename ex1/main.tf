@@ -18,8 +18,8 @@ resource "aws_security_group" "instance" {
 }
 resource "aws_instance" "example" {
   ami                    = "ami-785db401"
-  instance_type          = "t2.micro"
-#   instance_type          = "i2.2xlarge"
+#   instance_type          = "t2.micro"
+  instance_type          = "i2.2xlarge"
   availability_zone      = "eu-west-1b"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
   tags = {
