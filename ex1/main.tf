@@ -106,7 +106,7 @@ resource "aws_instance" "exampleb" {
   availability_zone = aws_subnet.subnet-tf.availability_zone
 
   key_name               = aws_key_pair.aws_key_pair.key_name
-  vpc_security_group_ids = ["${aws_security_group.instance.id}"]
+  vpc_security_group_ids = ["${aws_security_group.instanceb.id}"]
   tags = {
     Name = "pedram@hashicorp.com"
   }
