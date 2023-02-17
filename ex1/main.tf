@@ -8,6 +8,8 @@ provider "random" {
 provider "tls" {
 
 }
+provider "hcp" {}
+
 # create a sample webserver ec2 instance
 # resource "aws_security_group" "instance" {
 #   name = "terraform-example-instance"
@@ -127,16 +129,16 @@ resource "aws_security_group" "windows" {
 #   public_key = tls_private_key.keypair.public_key_openssh
 # }
 
-resource "aws_instance" "exampleb" {
-  ami               = "ami-086f54a5d4d34a5be"
-  instance_type     = "t2.micro"
-  availability_zone = aws_subnet.public.availability_zone
+# resource "aws_instance" "exampleb" {
+#   ami               = "ami-086f54a5d4d34a5be"
+#   instance_type     = "t2.micro"
+#   availability_zone = aws_subnet.public.availability_zone
 
-  # key_name               = aws_key_pair.aws_key_pair.key_name
-  vpc_security_group_ids = ["${aws_security_group.windows.id}"]
-  tags = {
-    Name = "pedram@hashicorp.com"
-  }
+#   # key_name               = aws_key_pair.aws_key_pair.key_name
+#   vpc_security_group_ids = ["${aws_security_group.windows.id}"]
+#   tags = {
+#     Name = "pedram@hashicorp.com"
+#   }
 
 
   # user_data = <<-EOF
@@ -144,4 +146,28 @@ resource "aws_instance" "exampleb" {
   #       echo "Hello, World" > index.html
   #       nohup busybox httpd -f -p 8080 &
   #       EOF
+}
+
+data "hcp_packer_iteration" "windows" {
+  bucket_name = "my-registry-bucket"
+  channel     = "latest"
+}
+
+data "hcp_packer_image" "ubuntu_us_east_2" {
+  bucket_name    = "my-registry-bucket"
+  cloud_provider = "aws"
+  iteration_id   = data.hcp_packer_iteration.ubuntu.ulid
+  region         = "eu-central-1"
+}
+
+resource "aws_instance" "app_server" {
+  ami           = data.hcp_packer_image.ubuntu_us_east_2.cloud_image_id
+  instance_type = "t2.micro"
+  availability_zone = aws_subnet.public.availability_zone
+
+#   # key_name               = aws_key_pair.aws_key_pair.key_name
+  vpc_security_group_ids = ["${aws_security_group.windows.id}"]
+  tags = {
+    Name = "Learn-HCP-Packer"
+  }
 }
