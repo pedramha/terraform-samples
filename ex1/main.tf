@@ -156,7 +156,7 @@ data "hcp_packer_iteration" "windows" {
 data "hcp_packer_image" "ubuntu_us_east_2" {
   bucket_name    = "my-registry-bucket"
   cloud_provider = "aws"
-  iteration_id   = data.hcp_packer_iteration.ubuntu.ulid
+  iteration_id   = data.hcp_packer_iteration.windows.id
   region         = "eu-central-1"
 }
 
