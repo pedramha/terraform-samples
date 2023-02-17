@@ -50,42 +50,69 @@ provider "tls" {
 #   bucket = random_pet.lambda_bucket_name.id
 #   acl    = "public-read-write"
 # }
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"  # Update with your preferred VPC CIDR block
 
-# create a vpc
-resource "aws_vpc" "vpc-tf" {
-  cidr_block = "0.0.0.0/16"
   tags = {
-    Name = "terraform-example"
+    Name = "example-vpc"
   }
 }
 
-# create a subnet
-resource "aws_subnet" "subnet-tf" {
-  vpc_id            = aws_vpc.vpc-tf.id
-  cidr_block        = "0.0.0.0/16"
-  availability_zone = "eu-west-1a"
+# Create public subnet resource
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.example.id
+  cidr_block = "10.0.1.0/24"  # Update with your preferred subnet CIDR block
+
   tags = {
-    Name = "terraform-example"
+    Name = "example-public-subnet"
   }
 }
 
+# Create internet gateway resource and attach it to VPC
+resource "aws_internet_gateway" "example" {
+  vpc_id = aws_vpc.example.id
 
-resource "aws_security_group" "instanceb" {
-  name = "terraform-example-instanceb"
+  tags = {
+    Name = "example-internet-gateway"
+  }
+}
 
-  # ingress for windows instances
+# Create route table for public subnet and add default route to internet gateway
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.example.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.example.id
+  }
+
+  tags = {
+    Name = "example-public-route-table"
+  }
+}
+
+# Associate public subnet with public route table
+resource "aws_route_table_association" "public" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public.id
+}
+
+# Create security group for Windows machine
+resource "aws_security_group" "windows" {
+  name_prefix = "windows-sg-"
+
   ingress {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = var.cidr_blocks
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = var.cidr_blocks
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -103,10 +130,10 @@ resource "aws_key_pair" "aws_key_pair" {
 resource "aws_instance" "exampleb" {
   ami               = "ami-0c2b0d3fb02824d92 "
   instance_type     = "t2.micro"
-  availability_zone = aws_subnet.subnet-tf.availability_zone
+  availability_zone = aws_subnet.public.availability_zone
 
   key_name               = aws_key_pair.aws_key_pair.key_name
-  vpc_security_group_ids = ["${aws_security_group.instanceb.id}"]
+  vpc_security_group_ids = ["${aws_security_group.windows.id}"]
   tags = {
     Name = "pedram@hashicorp.com"
   }
