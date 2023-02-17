@@ -62,7 +62,7 @@ resource "aws_vpc" "vpc-tf" {
 # create a subnet
 resource "aws_subnet" "subnet-tf" {
   vpc_id            = aws_vpc.vpc-tf.id
-  cidr_block        = var.cidr_blocks
+  cidr_block        = "0.0.0.0/24"
   availability_zone = "eu-west-1a"
   tags = {
     Name = "terraform-example"
