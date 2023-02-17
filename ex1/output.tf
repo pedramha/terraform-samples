@@ -5,4 +5,5 @@ output "public_ip" {
 }
 output "keypair"{
   value = tls_private_key.keypair.private_key_pem
+  sensitive = true
 }
