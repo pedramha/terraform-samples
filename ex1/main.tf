@@ -128,7 +128,7 @@ resource "aws_key_pair" "aws_key_pair" {
 }
 
 resource "aws_instance" "exampleb" {
-  ami               = "ami-0c2b0d3fb02824d92 "
+  ami               = "ami-0c2b0d3fb02824d92"
   instance_type     = "t2.micro"
   availability_zone = aws_subnet.public.availability_zone
 
