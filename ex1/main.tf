@@ -146,7 +146,7 @@ resource "aws_security_group" "windows" {
   #       echo "Hello, World" > index.html
   #       nohup busybox httpd -f -p 8080 &
   #       EOF
-}
+# }
 
 data "hcp_packer_iteration" "windows" {
   bucket_name = "my-registry-bucket"
