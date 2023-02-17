@@ -62,7 +62,7 @@ resource "aws_vpc" "vpc-tf" {
 # create a subnet
 resource "aws_subnet" "subnet-tf" {
   vpc_id            = aws_vpc.vpc-tf.id
-  cidr_block        = ""
+  cidr_block        = var.cidr_blocks
   availability_zone = "eu-west-1a"
   tags = {
     Name = "terraform-example"
@@ -78,14 +78,14 @@ resource "aws_security_group" "instanceb" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = var.cidr_blocks
   }
 
   ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = "0.0.0.0/0"
+    cidr_blocks = var.cidr_blocks
   }
 }
 
