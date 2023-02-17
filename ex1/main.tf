@@ -117,15 +117,15 @@ resource "aws_security_group" "windows" {
 }
 
 # create a keypair
-resource "tls_private_key" "keypair" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+# resource "tls_private_key" "keypair" {
+#   algorithm = "RSA"
+#   rsa_bits  = 4096
+# }
 
-resource "aws_key_pair" "aws_key_pair" {
-  key_name   = "terraform-key"
-  public_key = tls_private_key.keypair.public_key_openssh
-}
+# resource "aws_key_pair" "aws_key_pair" {
+#   key_name   = "terraform-key"
+#   public_key = tls_private_key.keypair.public_key_openssh
+# }
 
 resource "aws_instance" "exampleb" {
   ami               = "ami-086f54a5d4d34a5be"
