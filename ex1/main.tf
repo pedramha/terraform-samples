@@ -164,7 +164,7 @@ data "hcp_packer_image" "windows_image_eu-central" {
 
 resource "aws_instance" "app_server" {
   ami           = data.hcp_packer_image.windows_image_eu-central.cloud_image_id
-  instance_type = "t2.micro"
+  # instance_type = "t2.micro"
   availability_zone = aws_subnet.public.availability_zone
 
   vpc_security_group_ids = ["${aws_security_group.windows.id}"]
