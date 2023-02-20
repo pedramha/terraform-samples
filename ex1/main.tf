@@ -109,7 +109,12 @@ resource "aws_security_group" "windows" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+    ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -140,12 +145,9 @@ resource "aws_key_pair" "aws_key_pair" {
 #     Name = "pedram@hashicorp.com"
 #   }
 
-
-  # user_data = <<-EOF
-  #       #!/bin/bash
-  #       echo "Hello, World" > index.html
-  #       nohup busybox httpd -f -p 8080 &
-  #       EOF
+# provisioner "remote-exec" {
+#     script = "nginx-install.sh"
+#   }
 # }
 
 data "hcp_packer_iteration" "windows" {
