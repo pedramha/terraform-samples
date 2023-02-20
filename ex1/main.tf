@@ -162,7 +162,7 @@ data "hcp_packer_image" "windows_image_eu-central" {
 
 resource "aws_instance" "app_server" {
   ami           = data.hcp_packer_image.windows_image_eu-central.cloud_image_id
-  # instance_type = "t2.micro"
+  instance_type = data.hcp_packer_image.windows_image_eu-central.instance_type
   availability_zone = aws_subnet.public.availability_zone
 
   # key_name               = aws_key_pair.aws_key_pair.key_name
