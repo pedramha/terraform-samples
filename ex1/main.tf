@@ -153,7 +153,7 @@ data "hcp_packer_iteration" "windows" {
   channel     = "latest"
 }
 
-data "hcp_packer_image" "ubuntu_us_east_2" {
+data "hcp_packer_image" "windows_image_eu-central" {
   bucket_name    = "my-registry-bucket"
   cloud_provider = "aws"
   iteration_id   = data.hcp_packer_iteration.windows.id
@@ -161,11 +161,11 @@ data "hcp_packer_image" "ubuntu_us_east_2" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = data.hcp_packer_image.ubuntu_us_east_2.cloud_image_id
-  instance_type = "t2.micro"
+  ami           = data.hcp_packer_image.windows_image_eu-central.cloud_image_id
+  # instance_type = "t2.micro"
   availability_zone = aws_subnet.public.availability_zone
 
-  key_name               = aws_key_pair.aws_key_pair.key_name
+  # key_name               = aws_key_pair.aws_key_pair.key_name
   vpc_security_group_ids = ["${aws_security_group.windows.id}"]
   tags = {
     Name = "Learn-HCP-Packer"
