@@ -22,9 +22,24 @@ resource "aws_security_group" "instance" {
   }
 }
 
+# set a datablock which retrieves the aws ami for the following aws instance resource
+data "aws_ami" "example" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
+}
+
 
 resource "aws_instance" "example" {
-  ami                    = "ami-785db401"
+  ami                    = data.aws_ami.example.id
   instance_type          = "t2.micro"
   # instance_type          = "t3.large"
   availability_zone      = "eu-west-1a"
