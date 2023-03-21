@@ -26,7 +26,7 @@ resource "aws_security_group" "instance" {
 resource "aws_instance" "example" {
   ami                    = "ami-785db401"
   instance_type          = "t2.micro"
-  # instance_type          = "i2.2xlarge"
+  # instance_type          = "t3.large"
   availability_zone      = "eu-west-1a"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
   tags = {
@@ -52,7 +52,7 @@ resource "aws_s3_bucket" "bucket" {
   bucket = random_pet.lambda_bucket_name.id
   acl    = "public-read-write"
 }
-  
+
 # resource "aws_vpc" "example" {
 #   cidr_block = "10.0.0.0/16"  # Update with your preferred VPC CIDR block
 
