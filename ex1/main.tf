@@ -40,7 +40,7 @@ data "aws_ami" "example" {
 
 resource "aws_instance" "example" {
   ami                    = data.aws_ami.example.id
-  instance_type          = "t2.micro"
+  instance_type          = "t2.small"
   # instance_type          = "t3.large"
   availability_zone      = "eu-central-1a"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
