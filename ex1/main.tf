@@ -53,8 +53,6 @@ resource "aws_instance" "example" {
 	      echo "Hello, World" > index.html
 	      nohup busybox httpd -f -p 8080 &
 	      EOF
-
-
 }
 
 
@@ -67,6 +65,7 @@ resource "aws_s3_bucket" "bucket" {
   bucket = random_pet.lambda_bucket_name.id
   acl    = "public-read-write"
 }
+
 
 # resource "aws_vpc" "example" {
 #   cidr_block = "10.0.0.0/16"  # Update with your preferred VPC CIDR block
