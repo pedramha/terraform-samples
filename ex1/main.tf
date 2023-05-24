@@ -45,14 +45,14 @@ resource "aws_instance" "example" {
   availability_zone      = "eu-central-1b"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
   tags = {
-    Name = "pedram@hashicorp.com"
+    Name = "pedramh@hashicorp.com"
   }
 
   user_data = <<-EOF
-	      #!/bin/bash
-	      echo "Hello, World" > index.html
-	      nohup busybox httpd -f -p 8080 &
-	      EOF
+              #!/bin/bash
+              echo "Hello, World!" > index.html
+              nohup python -m SimpleHTTPServer 80 &
+              EOF
 }
 
 
