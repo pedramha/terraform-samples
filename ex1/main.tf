@@ -48,6 +48,12 @@ resource "aws_instance" "example" {
     Name = "pedramh@hashicorp.com"
   }
 
+  lifecycle {
+    postcondition {
+      condition     = self.instance_state == "running"
+      error_message = "EC2 instance must be running."
+    }
+  }
   user_data = <<-EOF
               #!/bin/bash
               echo "Hello, World!" > index.html
